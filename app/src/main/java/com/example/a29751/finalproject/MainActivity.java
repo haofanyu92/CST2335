@@ -4,6 +4,8 @@ package com.example.a29751.finalproject;
  * Created by Liangliang Du
  * Teamwork: Cheng Yan & Wang Yongdan & Du Liangliang & Hao Fanyu
  * This is the main interface
+ *
+ *
  */
 
 import android.content.Intent;
