@@ -4,7 +4,6 @@ package com.example.a29751.finalproject;
  * Created by Liangliang Du
  * Teamwork: Cheng Yan & Wang Yongdan & Du Liangliang & Hao Fanyu
  * This is the main interface
- *
  */
 
 import android.content.Intent;
@@ -12,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
