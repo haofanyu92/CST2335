@@ -3,6 +3,7 @@ package com.example.haofa.androidlabs;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -36,7 +37,8 @@ public class ChatWindow extends Activity {
         final FrameLayout fl = (FrameLayout) findViewById(R.id.frame);
         if (fl == null) {
             setContentView(R.layout.activity_chat_window);
-        }else
+        }/*else
+            Intent intent = new Intent(ChatWindow.this, Messag);*/
 
 
 
