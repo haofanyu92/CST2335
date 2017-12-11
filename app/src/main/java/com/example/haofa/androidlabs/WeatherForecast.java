@@ -1,5 +1,6 @@
 package com.example.haofa.androidlabs;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,7 +28,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class WeatherForecast extends AppCompatActivity {
+public class WeatherForecast extends Activity {
 
     private TextView tempText;
     private TextView minText;
