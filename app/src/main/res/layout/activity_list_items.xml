@@ -26,11 +26,14 @@
         android:text="@string/Box" />
 
     <Switch
-        android:text="@string/Switch"
+        android:id="@+id/sbutton"
         android:layout_columnWeight="1"
-        android:gravity="fill" />
+        android:gravity="fill"
+        android:text="@string/Switch" />
 
-    <ImageButton android:src="@android:drawable/ic_menu_camera"
+    <ImageButton
+        android:id="@+id/ibutton"
         android:layout_columnWeight="1"
-        android:gravity="fill" />
+        android:gravity="fill"
+        android:src="@android:drawable/ic_menu_camera" />
 </GridLayout>

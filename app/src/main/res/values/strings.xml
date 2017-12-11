@@ -2,10 +2,17 @@
     <string name="app_name">Lab2</string>
     <string name="hello_message">Hello World!</string>
     <string name="ButtonText">I\’m a button</string>
+    <string name="ButtonText1">Start Chat</string>
     <string name="Title">Login</string>
     <string name="Tile2">password</string>
     <string name="loginname">login name</string>
     <string name="radio">RadioButton</string>
     <string name="Box">CheckBox</string>
     <string name="Switch">What does this do?</string>
+    <string name="dialog_message">Do you want to finish?</string>
+    <string name="dialog_title">Confirm</string>
+    <string name="ok">Yes</string>
+    <string name="cancel">No</string>
+    <string name="setmessage">Message</string>
+    <string name="sendbutton">Send</string>
 </resources>
