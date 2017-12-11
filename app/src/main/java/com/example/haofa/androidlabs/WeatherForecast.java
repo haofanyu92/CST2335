@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,21 +58,19 @@ public class WeatherForecast extends AppCompatActivity {
         private String temp;
         private String minT;
         private String maxT;
-        private String icon;
         private Bitmap bmtep;
 
         @Override
         protected String doInBackground(String... args) {
             URL url = null;
             InputStream input = null;
-            String ns = null;
             HttpURLConnection conn = null;
 
 
             try {
                 url = new URL("http://api.openweathermap.org/data/2.5/weather?q=ottawa,ca&APPID=d99666875e0e51521f0040a3d97d0f6a&mode=xml&units=metric");
-                conn = (HttpURLConnection) url.openConnection();
 
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000 /* milliseconds */);
                 conn.setConnectTimeout(15000 /* milliseconds */);
                 conn.setRequestMethod("GET");
@@ -96,25 +95,33 @@ public class WeatherForecast extends AppCompatActivity {
                     if (name.equals("temperature")) {
                         temp = parser.getAttributeValue(null, "value") + " C";
                         publishProgress(25);
+                        SystemClock.sleep(300);
                         minT = parser.getAttributeValue(null, "min") + " C";
                         publishProgress(50);
+                        SystemClock.sleep(300);
                         maxT = parser.getAttributeValue(null, "max") + " C";
                         publishProgress(75);
+                        SystemClock.sleep(300);
 
                     } else if(name.equals("weather")){
-                        icon = parser.getAttributeValue(null, "icon");
-                        String filename = icon + ".png";
+                        String iconN = parser.getAttributeValue(null, "icon");
+                        Log.i("filename: " , iconN+".png");
 
-                        if(fileExistance(filename)) {
+                        if(fileExistance(iconN+".png")) {
                             FileInputStream fis = null;
-                            fis = openFileInput(filename);
+                            try {
+                                fis = openFileInput(iconN+".png");
+                            }
+                            catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                             bmtep = BitmapFactory.decodeStream(fis);
                             Log.i("Existed:","Find a local image");
 
                         }else {
-                            String urlString = "http://openweathermap.org/img/w/" + icon;
+                            String urlString = "http://openweathermap.org/img/w/" + iconN + ".png";
                             bmtep = getImage(urlString);
-                            SaveImage(bmtep, icon);
+                            SaveImage(bmtep, iconN);
                             Log.i("Non-Existed:","Download from website");
                         }
                         publishProgress(100);
@@ -127,20 +134,17 @@ public class WeatherForecast extends AppCompatActivity {
                 }
 
 
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (XmlPullParserException | IOException e) {
                 e.printStackTrace();
             } finally {
                 try {
+                    assert input != null;
                     input.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            return ns;
+            return null;
         }
         @Override
         protected void onPostExecute(String s) {
