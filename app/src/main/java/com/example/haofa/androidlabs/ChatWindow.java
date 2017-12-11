@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +33,12 @@ public class ChatWindow extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_window);
+        final FrameLayout fl = (FrameLayout) findViewById(R.id.frame);
+        if (fl == null) {
+            setContentView(R.layout.activity_chat_window);
+        }else
+
+
 
         final EditText et = (EditText)findViewById(R.id.edit);
         final Button bt = (Button)findViewById(R.id.button4);
