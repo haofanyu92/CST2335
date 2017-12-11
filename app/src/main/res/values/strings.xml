@@ -15,4 +15,7 @@
     <string name="cancel">No</string>
     <string name="setmessage">Message</string>
     <string name="sendbutton">Send</string>
+    <string name="text1">CurrentTemperature</string>
+    <string name="text2">Min</string>
+    <string name="text3">Max</string>
 </resources>

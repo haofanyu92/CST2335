@@ -94,13 +94,13 @@ public class WeatherForecast extends Activity {
                     String name = parser.getName();
                     // Starts by looking for the entry tag
                     if (name.equals("temperature")) {
-                        temp = parser.getAttributeValue(null, "value") + " C";
+                        temp = getResources().getString(R.string.text1)+ ": " + parser.getAttributeValue(null, "value") + " C";
                         publishProgress(25);
                         SystemClock.sleep(300);
-                        minT = parser.getAttributeValue(null, "min") + " C";
+                        minT = getResources().getString(R.string.text2)+ ": " + parser.getAttributeValue(null, "min") + " C";
                         publishProgress(50);
                         SystemClock.sleep(300);
-                        maxT = parser.getAttributeValue(null, "max") + " C";
+                        maxT = getResources().getString(R.string.text3)+ ": " + parser.getAttributeValue(null, "max") + " C";
                         publishProgress(75);
                         SystemClock.sleep(300);
 
