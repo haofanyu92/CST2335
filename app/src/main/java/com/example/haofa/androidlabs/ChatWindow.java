@@ -30,6 +30,7 @@ public class ChatWindow extends Activity {
 
 
     private ArrayList<String> chat = new ArrayList<>();
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,25 +56,25 @@ public class ChatWindow extends Activity {
         final ChatDatabaseHelper dbH = new ChatDatabaseHelper(this);
         final SQLiteDatabase db = dbH.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery(" select * from " + dbH.TABLE_NAME,null);
+        cursor = db.rawQuery(" select * from " + dbH.TABLE_NAME,null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             String message = cursor.getString(cursor.getColumnIndex(dbH.KEY_MESSAGE));
-            Double cursorID = cursor.getDouble(cursor.getColumnIndex(dbH.KEY_ID));
             Log.i(ACTIVITY_NAME, "SQL MESSAGE:" + message );
-            chat.add(message);=
-            chat.add(cursorID);
+            chat.add(message);
             messageAdapter.notifyDataSetChanged();
             cursor.moveToNext();
 
         }
-        cursor.moveToPosition();
+
 
         Log.i(ACTIVITY_NAME, "Cursor’s  column count =" + cursor.getColumnCount());
 
         for(int i=0; i<cursor.getColumnCount();i++) {
            System.out.print(cursor.getColumnName(i));
         }
+
+        lv.setOnItemClickListener(new );
 
 
 
@@ -136,5 +137,8 @@ public class ChatWindow extends Activity {
     }
     public long getItemId(int position) {
 
+        cursor.moveToPosition(position);
+
+        return
     }
 }
