@@ -59,12 +59,15 @@ public class ChatWindow extends Activity {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             String message = cursor.getString(cursor.getColumnIndex(dbH.KEY_MESSAGE));
+            Double cursorID = cursor.getDouble(cursor.getColumnIndex(dbH.KEY_ID));
             Log.i(ACTIVITY_NAME, "SQL MESSAGE:" + message );
-            chat.add(message);
+            chat.add(message);=
+            chat.add(cursorID);
             messageAdapter.notifyDataSetChanged();
             cursor.moveToNext();
 
         }
+        cursor.moveToPosition();
 
         Log.i(ACTIVITY_NAME, "Cursor’s  column count =" + cursor.getColumnCount());
 
@@ -130,5 +133,8 @@ public class ChatWindow extends Activity {
             return result;
 
         }
+    }
+    public long getItemId(int position) {
+
     }
 }
