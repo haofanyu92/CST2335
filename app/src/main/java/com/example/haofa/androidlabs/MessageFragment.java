@@ -11,9 +11,9 @@ import android.widget.RelativeLayout;
 public class MessageFragment extends Fragment{
 
 
-   public void onCreateView(){
-        RelativeLayout item = (RelativeLayout) item.findViewById();
-        View child = getLayoutInflater().inflate(R.layout.child, null);
-        item.addView(child);
+    public View onCreateView(LayoutInflater inflater, ViewGroup parentViewGroup, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_layout, parentViewGroup, false);
+    …
+        return view;
     }
 }

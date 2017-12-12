@@ -37,8 +37,9 @@ public class ChatWindow extends Activity {
         final FrameLayout fl = (FrameLayout) findViewById(R.id.frame);
         if (fl == null) {
             setContentView(R.layout.activity_chat_window);
-        }/*else
-            Intent intent = new Intent(ChatWindow.this, Messag);*/
+        }else {
+            Intent intent = new Intent(ChatWindow.this, MessageFragment.class);
+        }
 
 
 
