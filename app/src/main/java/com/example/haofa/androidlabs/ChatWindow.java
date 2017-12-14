@@ -1,6 +1,7 @@
 package com.example.haofa.androidlabs;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +33,9 @@ public class ChatWindow extends Activity {
 
     private ArrayList<String> chat = new ArrayList<>();
     private Cursor cursor;
+    private Boolean isFrameExist;
+    private MessageFragment newFragment;
+    private FragmentTransaction ftr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +79,31 @@ public class ChatWindow extends Activity {
            System.out.print(cursor.getColumnName(i));
         }
 
-        lv.setOnItemClickListener(new );
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Bundle args = new Bundle();
+                String message = messageAdapter.getItem(position);
+                args.putString("message", message);
+                args.putLong("ID", id);
+                args.putBoolean("Boolean", isFrameExist);
+                if (isFrameExist) {
+                    newFragment = new MessageFragment();
+                    newFragment.setArguments(args);
+
+                    ftr = getFragmentManager().beginTransaction();
+                    ftr.replace(R.id.frame, newFragment);
+                    ftr.addToBackStack(null);
+                    ftr.commit();
+
+                }else {
+                    Intent intent = new Intent(ChatWindow.this, MessageDetails.class);
+                    intent.putExtras(args);
+                    startActivityForResult(intent, 10, args);
+
+                }
+            }
+        });
 
 
 
@@ -87,7 +116,6 @@ public class ChatWindow extends Activity {
 
                 chat.add(sendM);
                 messageAdapter.notifyDataSetChanged(); //this restarts the process of getCount()
-
 
                 ContentValues cv = new ContentValues();
                 cv.put(dbH.KEY_MESSAGE, sendM);
@@ -139,6 +167,6 @@ public class ChatWindow extends Activity {
 
         cursor.moveToPosition(position);
 
-        return
+        return cursor.getLong(cursor.getColumnIndex(ChatDatabaseHelper.KEY_ID));
     }
 }
