@@ -33,7 +33,7 @@ public class ChatWindow extends Activity {
 
     private ArrayList<String> chat = new ArrayList<>();
     private Cursor cursor;
-    private Boolean isFrameExist;
+    private boolean isFrameExist;
     private MessageFragment newFragment;
     private FragmentTransaction ftr;
 
