@@ -11,7 +11,7 @@ public class MessageDetails extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_details);
 
-        Bundle info = new Bundle();
+        Bundle info = getIntent().getExtras();
 
         MessageFragment newFr = new MessageFragment();
         newFr.setArguments(info);
