@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 
+import static com.example.haofa.androidlabs.ChatDatabaseHelper.KEY_ID;
 import static com.example.haofa.androidlabs.ChatDatabaseHelper.TABLE_NAME;
 import static com.example.haofa.androidlabs.StartActivity.ACTIVITY_NAME;
 
@@ -36,6 +37,9 @@ public class ChatWindow extends Activity {
     private boolean isFrameExist;
     private MessageFragment newFragment;
     private FragmentTransaction ftr;
+    private ChatDatabaseHelper dbH;
+    private SQLiteDatabase db;
+    private final int RQCODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +60,12 @@ public class ChatWindow extends Activity {
         final ChatAdapter messageAdapter = new ChatAdapter( this );
         lv.setAdapter (messageAdapter);
 
+        isFrameExist = (FrameLayout)findViewById(R.id.frame) != null;
+
 
         //craete database
-        final ChatDatabaseHelper dbH = new ChatDatabaseHelper(this);
-        final SQLiteDatabase db = dbH.getWritableDatabase();
+        dbH = new ChatDatabaseHelper(this);
+        db = dbH.getWritableDatabase();
 
         cursor = db.rawQuery(" select * from " + dbH.TABLE_NAME,null);
         cursor.moveToFirst();
@@ -99,7 +105,7 @@ public class ChatWindow extends Activity {
                 }else {
                     Intent intent = new Intent(ChatWindow.this, MessageDetails.class);
                     intent.putExtras(args);
-                    startActivityForResult(intent, 10, args);
+                    startActivityForResult(intent, RQCODE, args);
 
                 }
             }
@@ -124,6 +130,32 @@ public class ChatWindow extends Activity {
                 et.setText("");
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requsetCode, int resultCode, Intent data) {
+
+        if(requsetCode == 10) {
+            Log.i(ACTIVITY_NAME,"Return to chatWindow.onActivityResult");
+        }
+        if(resultCode == ChatWindow.RESULT_OK) {
+
+            long passID = data.getLongExtra("Delete", -1);
+
+            db.delete(dbH.TABLE_NAME,dbH.KEY_ID + "=" + passID, null);
+            finish();
+            Intent intent = getIntent();
+            startActivity(intent);
+
+
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbH.close();
     }
 
 

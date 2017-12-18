@@ -19,6 +19,9 @@ import android.widget.TextView;
 
 public class MessageFragment extends Fragment{
 
+    private ChatDatabaseHelper dbh;
+    private SQLiteDatabase db;
+
 
 
     @Override
@@ -32,8 +35,8 @@ public class MessageFragment extends Fragment{
         TextView messageT = (TextView)view.findViewById(R.id.textMessage);
         TextView idT = (TextView)view.findViewById(R.id.textID);
 
-        ChatDatabaseHelper dbh = new ChatDatabaseHelper(getActivity());
-        final SQLiteDatabase db = dbh.getWritableDatabase();
+        dbh = new ChatDatabaseHelper(getActivity());
+        db = dbh.getWritableDatabase();
 
         messageT.setText(messageT.getText().toString() + " = " + message);
         idT.setText(idT.getText().toString() + " = " + id);
@@ -43,7 +46,7 @@ public class MessageFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 if(isTable){
-                    db.delete(ChatDatabaseHelper.TABLE_NAME, ChatDatabaseHelper.KEY_ID + " = " + id, null);
+                    db.delete(dbh.TABLE_NAME, dbh.KEY_ID + " = " + id, null);
                     getActivity().finish();
                     Intent intent = getActivity().getIntent();
                     startActivity(intent);
@@ -60,7 +63,7 @@ public class MessageFragment extends Fragment{
 
 
     }
-
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parentViewGroup, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.delete_message, parentViewGroup, false);
         return view;
